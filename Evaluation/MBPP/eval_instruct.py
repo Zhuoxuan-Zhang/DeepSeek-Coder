@@ -1,4 +1,5 @@
 from human_eval.evaluation import evaluate_functional_correctness
+from prompts.rag_prompt import construct_rag_prompt
 import argparse
 import json
 import os
@@ -13,7 +14,7 @@ client = OpenAI(api_key="",
 data_abs_dir = Path(__file__).parent / "data"
 
 
-def read_test_examples(data_path: str):
+def read_test_examples(data_path: str, use_rag=True):
     def format_test_example(q, tests, code: str = None):
         prompt = ">>> Problem:\n{}\n>>> Test Cases:\n{}\n".format(
             q.strip(), "\n".join(tests))
@@ -48,6 +49,9 @@ Examples are listed as follows:
 Here is my problem:
 {}
 '''.strip().format('\n\n'.join(examples_str), prompt)
+        #NOTE: we give mbpp code directly
+        if use_rag:
+            prompt_with_shots += construct_rag_prompt(code)
         yield {
             'task_id': ex['task_id'],
             'prompt': prompt_with_shots
@@ -92,10 +96,11 @@ def generate_main(args):
     model_name_or_path = args.model
     saved_path = args.output_path
     temp_dir = args.temp_dir
+    use_rag = args.use_rag
     os.makedirs(temp_dir, exist_ok=True)
     problem_file = os.path.join(data_abs_dir, f"mbpp.jsonl")
 
-    examples = list(read_test_examples(problem_file))
+    examples = list(read_test_examples(problem_file, use_rag=use_rag))
     print("Read {} examples for evaluation over.".format(len(examples)))
 
     generated_examples = []
@@ -129,6 +134,8 @@ if __name__ == '__main__':
                         help="output path of your generation")
     parser.add_argument('--temp_dir', type=str,
                         help="temp dir for evaluation", default="tmp")
+    parser.add_argument('--use_rag', action='store_true',
+                        help="whether to use rag for generation")
     args = parser.parse_args()
 
     os.environ["TOKENIZERS_PARALLELISM"] = "false"

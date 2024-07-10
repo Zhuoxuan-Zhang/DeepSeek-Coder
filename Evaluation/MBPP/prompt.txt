@@ -1,0 +1,175 @@
+Read all 974 examples from /home/paperspace/DeepSeek-Coder/Evaluation/MBPP/data/mbpp.jsonl over!
+Read 500 examples for evaluation over.
+Generating:   0%|                                                                                                                          | 0/500 [00:00<?, ?it/s]prompt Please refer the given examples and generate a python function for my problem.
+Examples are listed as follows:
+- Example 1:
+>>> Problem:
+Write a function to find the similar elements from the given two tuple lists.
+>>> Test Cases:
+assert similar_elements((3, 4, 5, 6),(5, 7, 4, 10)) == (4, 5)
+assert similar_elements((1, 2, 3, 4),(5, 4, 3, 7)) == (3, 4)
+assert similar_elements((11, 12, 14, 13),(17, 15, 14, 13)) == (13, 14)
+
+>>> Code:
+```python
+def similar_elements(test_tup1, test_tup2):
+  res = tuple(set(test_tup1) & set(test_tup2))
+  return (res) 
+```
+
+- Example 2:
+>>> Problem:
+Write a python function to identify non-prime numbers.
+>>> Test Cases:
+assert is_not_prime(2) == False
+assert is_not_prime(10) == True
+assert is_not_prime(35) == True
+
+>>> Code:
+```python
+import math
+def is_not_prime(n):
+    result = False
+    for i in range(2,int(math.sqrt(n)) + 1):
+        if n % i == 0:
+            result = True
+    return result
+```
+
+- Example 3:
+>>> Problem:
+Write a function to find the largest integers from a given list of numbers using heap queue algorithm.
+>>> Test Cases:
+assert heap_queue_largest( [25, 35, 22, 85, 14, 65, 75, 22, 58],3)==[85, 75, 65] 
+assert heap_queue_largest( [25, 35, 22, 85, 14, 65, 75, 22, 58],2)==[85, 75] 
+assert heap_queue_largest( [25, 35, 22, 85, 14, 65, 75, 22, 58],5)==[85, 75, 65, 58, 35]
+
+>>> Code:
+```python
+import heapq as hq
+def heap_queue_largest(nums,n):
+  largest_nums = hq.nlargest(n, nums)
+  return largest_nums
+```
+
+Here is my problem:
+>>> Problem:
+Write a python function to remove first and last occurrence of a given character from the string.
+>>> Test Cases:
+assert remove_Occ("hello","l") == "heo"
+assert remove_Occ("abcda","a") == "bcd"
+assert remove_Occ("PHP","P") == "H"
+
+Here's a Python function that removes the first and last occurrence of a given character from a string:
+
+```python
+def remove_Occ(s, char):
+    first_index = s.find(char)
+    last_index = s.rfind(char)
+    
+    if first_index == -1:
+        return s  # Character not found in the string
+    
+    # Remove the first occurrence
+    s = s[:first_index] + s[first_index+1:]
+    
+    # Recalculate the last index after removing the first occurrence
+    last_index = s.rfind(char)
+    
+    if last_index == -1:
+        return s  # No more occurrences found
+    
+    # Remove the last occurrence
+    s = s[:last_index] + s[last_index+1:]
+    
+    return s
+
+# Test cases
+assert remove_Occ("hello", "l") == "heo"
+assert remove_Occ("abcda", "a") == "bcd"
+assert remove_Occ("PHP", "P") == "H"
+```
+
+This function works by first finding the index of the first occurrence of the character using `find()`. It then removes this occurrence by slicing the string. After removing the first occurrence, it recalculates the index of the last occurrence using `rfind()`. If the character is found again, it removes this last occurrence similarly by slicing the string. If the character is not found in the string, it returns the original string.
+Generate 1/500 over...
+Generating:   0%|▏                                                                                                               | 1/500 [00:17<2:24:19, 17.35s/it]prompt Please refer the given examples and generate a python function for my problem.
+Examples are listed as follows:
+- Example 1:
+>>> Problem:
+Write a function to find the similar elements from the given two tuple lists.
+>>> Test Cases:
+assert similar_elements((3, 4, 5, 6),(5, 7, 4, 10)) == (4, 5)
+assert similar_elements((1, 2, 3, 4),(5, 4, 3, 7)) == (3, 4)
+assert similar_elements((11, 12, 14, 13),(17, 15, 14, 13)) == (13, 14)
+
+>>> Code:
+```python
+def similar_elements(test_tup1, test_tup2):
+  res = tuple(set(test_tup1) & set(test_tup2))
+  return (res) 
+```
+
+- Example 2:
+>>> Problem:
+Write a python function to identify non-prime numbers.
+>>> Test Cases:
+assert is_not_prime(2) == False
+assert is_not_prime(10) == True
+assert is_not_prime(35) == True
+
+>>> Code:
+```python
+import math
+def is_not_prime(n):
+    result = False
+    for i in range(2,int(math.sqrt(n)) + 1):
+        if n % i == 0:
+            result = True
+    return result
+```
+
+- Example 3:
+>>> Problem:
+Write a function to find the largest integers from a given list of numbers using heap queue algorithm.
+>>> Test Cases:
+assert heap_queue_largest( [25, 35, 22, 85, 14, 65, 75, 22, 58],3)==[85, 75, 65] 
+assert heap_queue_largest( [25, 35, 22, 85, 14, 65, 75, 22, 58],2)==[85, 75] 
+assert heap_queue_largest( [25, 35, 22, 85, 14, 65, 75, 22, 58],5)==[85, 75, 65, 58, 35]
+
+>>> Code:
+```python
+import heapq as hq
+def heap_queue_largest(nums,n):
+  largest_nums = hq.nlargest(n, nums)
+  return largest_nums
+```
+
+Here is my problem:
+>>> Problem:
+Write a function to sort a given matrix in ascending order according to the sum of its rows.
+>>> Test Cases:
+assert sort_matrix([[1, 2, 3], [2, 4, 5], [1, 1, 1]])==[[1, 1, 1], [1, 2, 3], [2, 4, 5]]
+assert sort_matrix([[1, 2, 3], [-2, 4, -5], [1, -1, 1]])==[[-2, 4, -5], [1, -1, 1], [1, 2, 3]]
+assert sort_matrix([[5,8,9],[6,4,3],[2,1,4]])==[[2, 1, 4], [6, 4, 3], [5, 8, 9]]
+
+Here's a Python function that sorts a given matrix in ascending order according to the sum of its rows, based on the examples provided:
+
+```python
+def sort_matrix(matrix):
+    # Sort the matrix based on the sum of each row
+    sorted_matrix = sorted(matrix, key=lambda row: sum(row))
+    return sorted_matrix
+```
+
+This function uses the `sorted` function with a custom key that calculates the sum of each row. This ensures that the matrix is sorted based on the sum of its rows in ascending order.
+
+Let's test the function with the provided test cases:
+
+```python
+assert sort_matrix([[1, 2, 3], [2, 4, 5], [1, 1, 1]]) == [[1, 1, 1], [1, 2, 3], [2, 4, 5]]
+assert sort_matrix([[1, 2, 3], [-2, 4, -5], [1, -1, 1]]) == [[-2, 4, -5], [1, -1, 1], [1, 2, 3]]
+assert sort_matrix([[5, 8, 9], [6, 4, 3], [2, 1, 4]]) == [[2, 1, 4], [6, 4, 3], [5, 8, 9]]
+```
+
+These assertions should pass, confirming that the function works as expected.
+Generating:   0%|▏                                                               
